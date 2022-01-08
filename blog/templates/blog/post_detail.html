@@ -38,6 +38,9 @@
                 <!-- Post header-->
                 <header class="mb-4">
                     <!-- Post title-->
+                    {% if post.hook_text %}
+                        <h5 class="text-muted">{{ post.hook_text }}</h5>
+                    {% endif %}
                     <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
                     <!--Author-->
                     <p class="lead">
