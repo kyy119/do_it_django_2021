@@ -18,6 +18,18 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
+class Tag(models.Model):
+    #unique -> 카테고르 중복 x
+    name = models.CharField(max_length=50, unique=True)
+    #allow_unicode -> 한글도 쓸 수 있게 해준다.
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/blog/Tag/{self.slug}/'
+
 class Post(models.Model):
     title = models.CharField(max_length=50)
     hook_text = models.CharField(max_length=100, blank=True)
@@ -37,6 +49,8 @@ class Post(models.Model):
     #form에 필수 사항에 다 들어갔는지 확인 하는 것이 blank=True
     #Null=True 는 데이터베이스안에 정보가 있어야된다 없어야 된다 정의 하는것
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    #다대다 관계
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return f'[{self.pk}] {self.title} :: {self.author}'
