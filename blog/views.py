@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Post, Category, Tag
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 #CBV(Class Based View)로 블로스 포스트 목록 페이지 만들기
 class PostList(ListView):
@@ -26,11 +27,17 @@ class PostDetail(DetailView):
 #    template_name = 'blog/single_page.html'
 
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
 
-
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
+            return super(PostCreate, self).form_valid(form)
+        else:
+            return redirect('/blog/')
 def category_page(request, slug):
     if slug == 'no_category':
         category = '미분류'
