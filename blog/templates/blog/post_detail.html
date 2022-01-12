@@ -42,7 +42,8 @@
     <img class="card-img-top" src="https://picsum.photos/seed/{{ post.id }}/600/200" alt="{{ post.title }}">
     {% endif %}
     <!-- Post content-->
-    <p>{{ post.content }}</p>
+    <!-- safe-> html 태그를 반영해준다.-->
+    <p>{{ post.get_content_markdown | safe }}</p>
     {% if post.tags.exists %}
         <i class="fas fa-tags"></i>
         {% for tag in post.tags.iterator %}
