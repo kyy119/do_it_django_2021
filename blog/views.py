@@ -1,5 +1,6 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Post, Category, Tag
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
@@ -43,6 +44,20 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         else:
             return redirect('/blog/')
 
+
+class PostUpdate(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
+
+    # url이 get,post 방식인지 구분 하는 역할 해당하는 포스트의 권한이 있는 user인지 확인
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(PostUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+        # PermissionDenied 잔고에서 제공해주는 기능 권한이 없는걸 알려주는 메세지를 준다.
+
+    template_name = 'blog/post_update_form.html'
 
 def category_page(request, slug):
     if slug == 'no_category':
