@@ -10,6 +10,7 @@ from . import views
 
 #CBV(Class Based View)일때
 urlpatterns = [
+    path('search/<str:q>/', views.PostSearch.as_view()),
     path('delete_comment/<int:pk>/', views.delete_comment),
     path('update_comment/<int:pk>/', views.CommentUpdate.as_view()),
     path('update_post/<int:pk>/', views.PostUpdate.as_view()),
