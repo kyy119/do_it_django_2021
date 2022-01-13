@@ -1,16 +1,56 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>김영윤의 웹사이트</title>
+    <title>Do it Django Inflrean</title>
+    <link href="{% static 'blog/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/93d04dab4b.js" crossorigin="anonymous"></script>
+
+    <link href="{% static 'single_pages/css/landing.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <nav>
-        <a href="/blog/">Blog</a>
-        <a href="/about_me/">About_me</a>
-    </nav>
+    {% include 'blog/navbar.html' %}
+    <section>
+        <div class="container">
+            <div class="row justify-content-between mt-4">
+                <div class="col-lg-6 text-light">
+                    <h1>Do It! Django + Inflearn </h1>
+                    <h3>파이썬 잔고로 나만의 블로그 사이트를 만들 수 있습니다.</h3>
+                </div>
+                <div class="col-lg-5">
+                    <h2 class="text-light">Blog - Recent posts</h2>
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            가장 최근 포스트 내용
+                        </div>
+                    </div>
 
-    <h1>안녕하세요. 김영윤입니다.</h1>
-    <h3>아직 개발중..</h3>
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            포스트 2 내용
+                        </div>
+                    </div>
+
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            포스트 3 내용
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<div class="fixed-bottom">
+{% include 'blog/footer.html' %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
 </body>
 </html>
