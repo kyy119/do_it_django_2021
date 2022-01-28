@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Board
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import BoardForm
 # Create your views here.
 
 
@@ -16,7 +17,7 @@ class BoardDetail(DetailView):
 
 class BoardCreate(LoginRequiredMixin, CreateView):
     model = Board
-    fields = ['title', 'content']
+    form_class = BoardForm
 
     def form_valid(self, form):
         current_user = self.request.user
@@ -26,4 +27,4 @@ class BoardCreate(LoginRequiredMixin, CreateView):
             return response
         else:
             return redirect('/board/')
-        
+

@@ -7,7 +7,8 @@
       <p class="float-right">{{ board.created_at }}</p>
       {{ board.author }}
       <hr/>
-      {{ board.content }}
+      {{ board.content | safe }}
+      <!--safe는 html 형태가 아니게 나오기 위한 목적-->
   </div>
 </div>
 
