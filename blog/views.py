@@ -41,6 +41,8 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
+    #지금 로그인한 사용자를 author로 넣어줌
+
     def form_valid(self, form):
         current_user = self.request.user
         if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):
